@@ -2,7 +2,7 @@ Installation:
 
     git clone https://github.com/Odin366/DotVim.git ~/.vim
 
-Create symlinks:
+Create symbolic links:
 
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
