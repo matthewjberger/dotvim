@@ -1,1 +1,0 @@
-/home/odin/.vim/gvimrc
