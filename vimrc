@@ -8,6 +8,7 @@ syntax on
 filetype plugin indent on
 
 inoremap jk <ESC>;
+nmap<F8> :TagbarToggle<CR> 
 set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
@@ -47,10 +48,12 @@ set t_vb=
 set cmdheight=2
 set mouse=a
 set notimeout ttimeout ttimeoutlen=200
-set pastetoggle=<F11>
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+nnoremap <F2> :set invpaste paste? <CR>
+set pastetoggle=<F2>
+set showmode
 map Y y$
 nnoremap <C-L> :nohl<CR><C-L>
 filetype on
