@@ -13,3 +13,11 @@ Switch to the `~/.vim` directory, and fetch submodules:
     git submodule init
     git submodule update
 
+To update individual plugins, navigate to bundle/pluginName and type:
+
+    git pull origin master
+
+To update all plugins:
+
+    git submodule foreach git pull origin master
+
