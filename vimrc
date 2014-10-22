@@ -60,15 +60,29 @@ filetype on
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <SPACE> :
 nnoremap <leader><SPACE> :w<CR>
+
+" Save and quit files more easily
 nnoremap <leader>q ZQ
 nnoremap <leader>z ZZ
+
+" Navigate using tags
 map <C-\> :tab split<cr> :exec("tag ".expand("<cword>"))<CR>
 map <A-]> :split <CR> :exec("tag ".expand("<cword>"))<CR>
+
 set exrc
 set secure
 set t_Co=256
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 syntax on
+set splitbelow
+set splitright
 set background=dark
+
+" easier movement between windows
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 colorscheme solarized
