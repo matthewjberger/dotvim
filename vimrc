@@ -8,7 +8,7 @@ syntax on
 filetype plugin indent on
 
 inoremap jk <ESC>;
-nmap<F8> :TagbarToggle<CR> 
+nnoremap<F8> :TagbarToggle<CR> 
 set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
@@ -84,5 +84,8 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+" Use ack for searching
+set grepprg=ack
 
 colorscheme solarized
