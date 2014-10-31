@@ -43,3 +43,6 @@
 [submodule "bundle/vim-rails"]
 	path = bundle/vim-rails
 	url = https://github.com/tpope/vim-rails.git
+[submodule "bundle/vim-protodef"]
+	path = bundle/vim-protodef
+	url = https://github.com/derekwyatt/vim-protodef.git
