@@ -48,7 +48,6 @@ set laststatus=2
 set confirm
 set t_vb=
 set cmdheight=2
-set mouse=a
 set notimeout ttimeout ttimeoutlen=200
 set shiftwidth=4
 set softtabstop=4
@@ -57,7 +56,7 @@ nnoremap <F2> :set invpaste paste? <CR>
 set pastetoggle=<F2>
 set showmode
 map Y y$
-nnoremap <C-L> :nohl<CR><C-L>
+nmap <silent> ,/ :nohlsearch<CR>
 filetype on
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <SPACE> :
