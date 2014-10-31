@@ -49,3 +49,6 @@
 [submodule "bundle/vim-fswitch"]
 	path = bundle/vim-fswitch
 	url = https://github.com/derekwyatt/vim-fswitch.git
+[submodule "bundle/vim-togglemouse"]
+	path = bundle/vim-togglemouse
+	url = https://github.com/nvie/vim-togglemouse.git
