@@ -15,7 +15,7 @@ let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
 nnoremap <leader>sv :source $MYVIMRC <CR>;
 noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>; 
-noremap <F4> :wa<CR> make<CR>; 
+noremap <F4> :wa<CR> :make <bar> copen<CR>; 
 nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
 set hidden
