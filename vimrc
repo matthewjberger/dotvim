@@ -119,4 +119,16 @@ set grepprg=ack
  " Switch to the file and load it into a new window split below 
 	nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 
+" Add ability to rename file while editing that file
+function! RenameFile()
+    let old_name = expand(%)
+    let new_name = input('New file name: ', expand(%), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas' . new_name
+        exec 'silenet !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>r :call RenameFile()<CR>
+
 colorscheme solarized
