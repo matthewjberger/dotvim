@@ -64,7 +64,8 @@ nnoremap <SPACE> :
 nnoremap <leader><SPACE> :w<CR>
 
 " Save and quit files more easily
-nnoremap <leader>q ZZ       " Quit file without saving
+nnoremap <leader>q ZQ " Quit file without saving
+nnoremap <leader>z ZZ " Save and quit file 
 
 " Navigate using tags
 map <C-\> :tab split<cr> :exec("tag ".expand("<cword>"))<CR>
