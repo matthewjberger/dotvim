@@ -22,6 +22,7 @@ set hidden
 set nowrap
 set tabstop=4
 set backspace=indent,eol,start
+set smartindent
 set autoindent
 set copyindent
 set shiftround
