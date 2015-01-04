@@ -142,9 +142,9 @@ function! EnableNodeLint()
 endfunction
 
 " Map node linting enabler
-nnoremap <leader>nf :call EnableNodeLint()<CR>
+nnoremap <leader>ln :call EnableNodeLint()<CR>
 
 "Automatic node linting during js file creation
-autocmd BufNewFile *.js call EnableNodeLint()<cr>
+autocmd BufNewFile *.js :call EnableNodeLint()
 
 colorscheme solarized
