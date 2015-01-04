@@ -54,8 +54,8 @@ set notimeout ttimeout ttimeoutlen=200
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-nnoremap <F2> :set invpaste paste? <CR>
-set pastetoggle=<F2>
+nnoremap <F6> :set invpaste paste? <CR>
+set pastetoggle=<F6>
 set showmode
 map Y y$
 nmap <silent> ,/ :nohlsearch<CR>
@@ -131,5 +131,20 @@ function! RenameFile()
     endif
 endfunction
 map <leader>r :call RenameFile()<CR>
+
+" jshint validation
+nnoremap <silent><F1> :JSHint<CR>
+inoremap <silent><F1> <C-O>:JSHint<CR>
+vnoremap <silent><F1> :JSHint<CR>
+
+" show next jshint error
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <C-O>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
+
+" show previous jshint error
+nnoremap <silent><F3> :lprevious<CR>
+inoremap <silent><F3> <C-O>:lprevious<CR>
+vnoremap <silent><F3> :lprevious<CR>
 
 colorscheme solarized
