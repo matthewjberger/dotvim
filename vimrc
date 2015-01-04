@@ -137,8 +137,7 @@ vnoremap <silent><F3> :lprevious<CR>
 
 " Add node linting to file
 function! EnableNodeLint()
-    let @q = '0ggi/*jslint node:true*/jk'
-    exec ':normal @q'
+    exec ':normal 0ggi/*jslint node:true*/'
 endfunction
 
 " Map node linting enabler
