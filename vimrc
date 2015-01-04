@@ -120,18 +120,6 @@ set grepprg=ack
  " Switch to the file and load it into a new window split below 
 	nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 
-" Add ability to rename file while editing that file
-function! RenameFile()
-    let old_name = expand(%)
-    let new_name = input('New file name: ', expand(%), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas' . new_name
-        exec 'silenet !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>r :call RenameFile()<CR>
-
 " jshint validation
 nnoremap <silent><F1> :JSHint<CR>
 inoremap <silent><F1> <C-O>:JSHint<CR>
@@ -146,5 +134,17 @@ vnoremap <silent><F2> :lnext<CR>
 nnoremap <silent><F3> :lprevious<CR>
 inoremap <silent><F3> <C-O>:lprevious<CR>
 vnoremap <silent><F3> :lprevious<CR>
+
+" Add node linting to file
+function! EnableNodeLint()
+    let @q = '0ggi/*jslint node:true*/jk'
+    exec ':normal @q'
+endfunction
+
+" Map node linting enabler
+nnoremap <leader>nf :call EnableNodeLint()<CR>
+
+"Automatic node linting during js file creation
+autocmd BufNewFile *.js call EnableNodeLint()<cr>
 
 colorscheme solarized
