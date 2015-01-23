@@ -74,7 +74,6 @@ map <A-]> :split <CR> :exec("tag ".expand("<cword>"))<CR>
 
 set exrc
 set secure
-set t_Co=256
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 syntax on
@@ -146,4 +145,7 @@ nnoremap <leader>ln :call EnableNodeLint()<CR>
 "Automatic node linting during js file creation
 autocmd BufNewFile *.js :call EnableNodeLint()
 
+set t_Co=16
 colorscheme solarized
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
