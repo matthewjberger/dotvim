@@ -14,8 +14,16 @@ set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
 nnoremap <leader>sv :source $MYVIMRC <CR>;
+
+" Run
+noremap <F7> :wa<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
+
+" Rebuild and Run
 noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>; 
+
+" Rebuild
 noremap <F4> :wa<CR> :make <bar> copen<CR>; 
+
 nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
 set hidden
