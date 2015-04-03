@@ -1,6 +1,6 @@
 Installation:
 
-    git clone https://github.com/Odin366/DotVim.git ~/.vim
+    git clone https://github.com/matthewjberger/DotVim.git ~/.vim
 
 Create symbolic links:
 
