@@ -67,3 +67,9 @@
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "bundle/vim-lion"]
+	path = bundle/vim-lion
+	url = https://github.com/tommcdo/vim-lion.git
