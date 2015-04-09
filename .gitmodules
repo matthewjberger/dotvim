@@ -73,3 +73,12 @@
 [submodule "bundle/vim-lion"]
 	path = bundle/vim-lion
 	url = https://github.com/tommcdo/vim-lion.git
+[submodule "bundle/vim-sparkup"]
+	path = bundle/vim-sparkup
+	url = https://github.com/tristen/vim-sparkup.git
+[submodule "bundle/vim-fanfingtastic"]
+	path = bundle/vim-fanfingtastic
+	url = https://github.com/dahu/vim-fanfingtastic.git
+[submodule "bundle/SearchParty"]
+	path = bundle/SearchParty
+	url = https://github.com/dahu/SearchParty.git
