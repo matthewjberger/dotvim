@@ -9,7 +9,7 @@ syntax on
 filetype plugin indent on
 
 inoremap jk <ESC>;
-nnoremap<F8> :TagbarToggle<CR> 
+nnoremap<F8> :TagbarToggle<CR>
 set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
@@ -19,10 +19,10 @@ nnoremap <leader>sv :source $MYVIMRC <CR>;
 noremap <F7> :wa<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
 
 " Rebuild and Run
-noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>; 
+noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
 
 " Rebuild
-noremap <F4> :wa<CR> :make <bar> copen<CR>; 
+noremap <F4> :wa<CR> :make <bar> copen<CR>;
 
 nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
@@ -74,7 +74,7 @@ nnoremap <leader><SPACE> :w<CR>
 
 " Save and quit files more easily
 nnoremap <leader>q ZQ " Quit file without saving
-nnoremap <leader>z ZZ " Save and quit file 
+nnoremap <leader>z ZZ " Save and quit file
 
 " Navigate using tags
 map <C-\> :tab split<cr> :exec("tag ".expand("<cword>"))<CR>
@@ -87,7 +87,6 @@ highlight ColorColumn ctermbg=darkgray
 syntax on
 set splitbelow
 set splitright
-set background=dark
 
 " easier movement between windows
 map <C-h> <C-w>h
@@ -100,31 +99,31 @@ set grepprg=ack
 
 " FSwitch mappings
 
- " Switch to the file and load it into the current window 
+ " Switch to the file and load it into the current window
 	nmap <silent> <Leader>of :FSHere<cr>
 
- " Switch to the file and load it into the window on the right 
+ " Switch to the file and load it into the window on the right
 	nmap <silent> <Leader>ol :FSRight<cr>
 
- " Switch to the file and load it into a new window split on the right 
+ " Switch to the file and load it into a new window split on the right
 	nmap <silent> <Leader>oL :FSSplitRight<cr>
 
- " Switch to the file and load it into the window on the left 
+ " Switch to the file and load it into the window on the left
 	nmap <silent> <Leader>oh :FSLeft<cr>
 
- " Switch to the file and load it into a new window split on the left 
+ " Switch to the file and load it into a new window split on the left
 	nmap <silent> <Leader>oH :FSSplitLeft<cr>
 
- " Switch to the file and load it into the window above 
+ " Switch to the file and load it into the window above
 	nmap <silent> <Leader>ok :FSAbove<cr>
 
- " Switch to the file and load it into a new window split above 
+ " Switch to the file and load it into a new window split above
 	nmap <silent> <Leader>oK :FSSplitAbove<cr>
 
- " Switch to the file and load it into the window below 
+ " Switch to the file and load it into the window below
 	nmap <silent> <Leader>oj :FSBelow<cr>
 
- " Switch to the file and load it into a new window split below 
+ " Switch to the file and load it into a new window split below
 	nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 
 " jshint validation
@@ -142,26 +141,36 @@ nnoremap <silent><F3> :lprevious<CR>
 inoremap <silent><F3> <C-O>:lprevious<CR>
 vnoremap <silent><F3> :lprevious<CR>
 
-" Add node linting to file
-function! EnableNodeLint()
-    exec ':normal 0ggi/*jslint node:true*/'
-endfunction
-
-" Map node linting enabler
-nnoremap <leader>ln :call EnableNodeLint()<CR>
-
-"Automatic node linting during js file creation
-autocmd BufNewFile *.js :call EnableNodeLint()
-
 set t_Co=16
 colorscheme solarized
+set background=dark
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
-set ruler
-set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
+" Sets arduino filetypes
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
 autocmd InsertEnter * silent! :set norelativenumber
 autocmd InsertLeave,BufNewFile,VimEnter * silent! :set relativenumber
+
+" Removes trailing spaces
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+
+nnoremap <silent> <leader>rtw :call TrimWhiteSpace()<CR>
+
+autocmd FileWritePre   * :call TrimWhiteSpace()
+autocmd FileAppendPre  * :call TrimWhiteSpace()
+autocmd FilterWritePre * :call TrimWhiteSpace()
+autocmd BufWritePre    * :call TrimWhiteSpace()
+
+" Python configuration
+augroup vimrc_autocmds
+    autocmd!
+    "highlight characters past col 120
+    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd Filetype python match Excess /\%120v.*/
+    autocmd Filetype python set nowrap
+augroup END
