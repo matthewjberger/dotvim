@@ -21,5 +21,16 @@ To update all plugins:
     git submodule foreach git pull origin master
 
 Adding pathogen bundle submodules (self):
-    
+
     git submodule add (git url) bundle/pluginName
+
+To verify that ruby is installed and vim has ruby support:
+
+    ruby -v
+    vim --version | grep "ruby"
+
+Compiling command-t plugin:
+
+    cd ~/.vim/bundle/command-t/ruby/command-t/
+    ruby extconf.rb
+    make
