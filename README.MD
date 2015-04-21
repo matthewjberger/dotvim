@@ -20,6 +20,9 @@ To update all plugins:
 
     git submodule foreach git pull origin master
 
+***
+Helpful Commands
+
 Adding pathogen bundle submodules (self):
 
     git submodule add (git url) bundle/pluginName
