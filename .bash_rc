@@ -1,0 +1,1 @@
+alias getmodules="git submodule | awk '{print }' | sed 's/.*bundle\///'"

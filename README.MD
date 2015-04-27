@@ -1,8 +1,6 @@
 #Vim Dot Files
-***
 
 ##Installation:
-***
 
 Clone the Repo:
 
@@ -19,7 +17,6 @@ Switch to the `~/.vim` directory, and fetch submodules:
     git submodule update
 
 ##Helpful Commands
-***
 
 Adding vim bundles as git submodules for use with pathogen:
 
@@ -49,3 +46,11 @@ Compiling command-t plugin:
     cd ~/.vim/bundle/command-t/ruby/command-t/
     ruby extconf.rb
     make
+
+List available plugins:
+
+    git submodule | sed 's/.*bundle\///'| awk '{print $2}'
+
+Alias for retrieving list of installed modules:
+
+    echo "alias getmodules=\"git submodule | sed 's/.*bundle\///'| awk '{print $2}'\"" >> ~/.bash_rc
