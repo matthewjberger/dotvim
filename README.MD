@@ -21,9 +21,9 @@ Adding vim bundles as git submodules for use with pathogen:
 
 Removing git submodules:
 
-    git submodule deinit (submodule name)
-    git rm (submodule name)
-    rm -rf .git/modules/(submodule name)
+    git submodule deinit bundle/(submodule name)
+    git rm bundle/(submodule name)
+    rm -rf .git/modules/bundle/(submodule name)
 
 To update individual plugins, navigate to bundle/pluginName and type:
 
