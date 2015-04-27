@@ -12,6 +12,19 @@ Switch to the `~/.vim` directory, and fetch submodules:
     git submodule init
     git submodule update
 
+***
+Helpful Commands
+
+Adding vim bundles as git submodules for use with pathogen:
+
+    git submodule add (git url) bundle/pluginName
+
+Removing git submodules:
+
+    git submodule deinit (submodule name)
+    git rm (submodule name)
+    rm -rf .git/modules/(submodule name)
+
 To update individual plugins, navigate to bundle/pluginName and type:
 
     git pull origin master
@@ -19,13 +32,6 @@ To update individual plugins, navigate to bundle/pluginName and type:
 To update all plugins:
 
     git submodule foreach git pull origin master
-
-***
-Helpful Commands
-
-Adding pathogen bundle submodules (self):
-
-    git submodule add (git url) bundle/pluginName
 
 To verify that ruby is installed and vim has ruby support:
 
