@@ -1,4 +1,10 @@
-Installation:
+#Vim Dot Files
+***
+
+##Installation:
+***
+
+Clone the Repo:
 
     git clone https://github.com/matthewjberger/DotVim.git ~/.vim
 
@@ -12,8 +18,8 @@ Switch to the `~/.vim` directory, and fetch submodules:
     git submodule init
     git submodule update
 
+##Helpful Commands
 ***
-Helpful Commands
 
 Adding vim bundles as git submodules for use with pathogen:
 
