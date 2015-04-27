@@ -53,4 +53,4 @@ List available plugins:
 
 Alias for retrieving list of installed modules:
 
-    echo "alias getmodules=\"git submodule | sed 's/.*bundle\///'| awk '{print $2}'\"" >> ~/.bash_rc
+    sudo echo "alias getmodules=\"git submodule | sed 's/.*bundle\///'| awk '{print $2}'\"" >> ~/.bash_aliases
