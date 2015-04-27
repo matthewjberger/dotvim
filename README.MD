@@ -50,7 +50,3 @@ Compiling command-t plugin:
 List available plugins:
 
     git submodule | sed 's/.*bundle\///'| awk '{print $2}'
-
-Alias for retrieving list of installed modules:
-
-    sudo echo "alias getmodules=\"git submodule | sed 's/.*bundle\///'| awk '{print $2}'\"" >> ~/.bash_aliases
