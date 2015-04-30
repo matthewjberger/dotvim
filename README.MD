@@ -54,6 +54,5 @@ Compile YouCompleteMe for C++ and Go code completion:
 
 List available plugins:
 
-    git submodule | sed 's/.*bundle\///'| awk '{print $2}'
-
-
+    cd ~/.vim
+    git submodule | sed 's/.*bundle\///'| awk '{print $1}'
