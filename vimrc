@@ -182,3 +182,6 @@ autocmd Syntax c,cpp,h normal zR
 
 "You Complete Me syntax config
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+" Enable search pulse
+set cursorline

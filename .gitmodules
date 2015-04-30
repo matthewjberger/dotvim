@@ -85,3 +85,15 @@
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "bundle/vim-search-pulse"]
+	path = bundle/vim-search-pulse
+	url = https://github.com/inside/vim-search-pulse.git
+[submodule "bundle/accelerated-smooth-scroll"]
+	path = bundle/accelerated-smooth-scroll
+	url = https://github.com/yonchu/accelerated-smooth-scroll.git
+[submodule "bundle/vim-css-color"]
+	path = bundle/vim-css-color
+	url = https://github.com/skammer/vim-css-color.git
