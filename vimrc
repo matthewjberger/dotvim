@@ -94,37 +94,34 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Use ack for searching
-set grepprg=ack
-
 " FSwitch mappings
 
- " Switch to the file and load it into the current window
-	nmap <silent> <Leader>of :FSHere<cr>
+" Switch to the file and load it into the current window
+nmap <silent> <Leader>of :FSHere<cr>
 
- " Switch to the file and load it into the window on the right
-	nmap <silent> <Leader>ol :FSRight<cr>
+" Switch to the file and load it into the window on the right
+nmap <silent> <Leader>ol :FSRight<cr>
 
- " Switch to the file and load it into a new window split on the right
-	nmap <silent> <Leader>oL :FSSplitRight<cr>
+" Switch to the file and load it into a new window split on the right
+nmap <silent> <Leader>oL :FSSplitRight<cr>
 
- " Switch to the file and load it into the window on the left
-	nmap <silent> <Leader>oh :FSLeft<cr>
+" Switch to the file and load it into the window on the left
+nmap <silent> <Leader>oh :FSLeft<cr>
 
- " Switch to the file and load it into a new window split on the left
-	nmap <silent> <Leader>oH :FSSplitLeft<cr>
+" Switch to the file and load it into a new window split on the left
+nmap <silent> <Leader>oH :FSSplitLeft<cr>
 
- " Switch to the file and load it into the window above
-	nmap <silent> <Leader>ok :FSAbove<cr>
+" Switch to the file and load it into the window above
+nmap <silent> <Leader>ok :FSAbove<cr>
 
- " Switch to the file and load it into a new window split above
-	nmap <silent> <Leader>oK :FSSplitAbove<cr>
+" Switch to the file and load it into a new window split above
+nmap <silent> <Leader>oK :FSSplitAbove<cr>
 
- " Switch to the file and load it into the window below
-	nmap <silent> <Leader>oj :FSBelow<cr>
+" Switch to the file and load it into the window below
+nmap <silent> <Leader>oj :FSBelow<cr>
 
- " Switch to the file and load it into a new window split below
-	nmap <silent> <Leader>oJ :FSSplitBelow<cr>
+" Switch to the file and load it into a new window split below
+nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 
 " jshint validation
 nnoremap <silent><F1> :JSHint<CR>
@@ -177,3 +174,11 @@ augroup vimrc_autocmds
     autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python set nowrap
 augroup END
+
+" zM to open all folds
+" zR to close all folds
+autocmd Syntax c,cpp,h setlocal foldmethod=syntax
+autocmd Syntax c,cpp,h normal zR
+
+"You Complete Me syntax config
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
