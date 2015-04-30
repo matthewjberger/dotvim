@@ -185,3 +185,27 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 
 " Enable search pulse
 set cursorline
+
+" Run shell commands
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  "call setline(1, 'You entered:    ' . a:cmdline)
+  "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(1, 'List of installed plugins:')
+  call setline(2,substitute(getline(1),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
+
+nnoremap <leader>ll :Shell git submodule \| sed 's/.*bundle\///' \| awk '{print $1}'<CR>
