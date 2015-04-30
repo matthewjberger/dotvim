@@ -47,6 +47,13 @@ Compiling command-t plugin:
     ruby extconf.rb
     make
 
+Compile YouCompleteMe for C++ and Go code completion:
+
+    cd ~/.vim/bundle/YouCompleteMe
+    ./install.sh --clang-completer --gocode-completer
+
 List available plugins:
 
     git submodule | sed 's/.*bundle\///'| awk '{print $2}'
+
+
