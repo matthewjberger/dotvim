@@ -166,6 +166,9 @@ autocmd FileAppendPre  * :call TrimWhiteSpace()
 autocmd FilterWritePre * :call TrimWhiteSpace()
 autocmd BufWritePre    * :call TrimWhiteSpace()
 
+" Toggle solarized light/dark
+call togglebg#map("<F10>")
+
 " Python configuration
 augroup vimrc_autocmds
     autocmd!
