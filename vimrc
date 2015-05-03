@@ -208,4 +208,4 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
-nnoremap <leader>ll :Shell git submodule \| sed 's/.*bundle\///' \| awk '{print $1}'<CR>
+nnoremap <leader>ll :Shell pushd ~/.vim && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd<CR>
