@@ -13,6 +13,7 @@ nnoremap<F8> :TagbarToggle<CR>
 set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
+nnoremap <leader>Ev :split $MYVIMRC <CR> :only<cr>;
 nnoremap <leader>sv :source $MYVIMRC <CR>;
 
 " Run
@@ -30,7 +31,6 @@ set hidden
 set nowrap
 set tabstop=4
 set backspace=indent,eol,start
-set smartindent
 set autoindent
 set copyindent
 set shiftround
@@ -209,3 +209,24 @@ function! s:RunShellCommand(cmdline)
 endfunction
 
 nnoremap <leader>ll :Shell pushd ~/.vim && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd<CR>
+
+" Unite.vim mappings
+
+"   Enable Yank history
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>y :Unite history/yank<CR>
+
+"   File finding mappings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>t  :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+nnoremap <leader>F :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+nnoremap <leader>ft :Unite file_rec/async -start-insert -default-action=tabopen<CR>
+nnoremap <leader>fs :Unite file_rec/async -start-insert -default-action=split<CR>
+nnoremap <leader>fv :Unite file_rec/async -start-insert -default-action=vsplit<CR>
+
+"   Buffer switching
+nnoremap <leader>ss :Unite -quick-match buffer<cr>

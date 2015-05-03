@@ -18,17 +18,6 @@ To update all plugins:
 
     git submodule foreach git pull origin master
 
-To verify that ruby is installed and vim has ruby support:
-
-    ruby -v
-    vim --version | grep "ruby"
-
-Compiling command-t plugin:
-
-    cd ~/.vim/bundle/command-t/ruby/command-t/
-    ruby extconf.rb
-    make
-
 Compile YouCompleteMe for C++ and Go code completion:
 
     cd ~/.vim/bundle/YouCompleteMe
