@@ -25,8 +25,31 @@ noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "-------
 " Rebuild
 noremap <F4> :wa<CR> :make <bar> copen<CR>;
 
+" Save when losing focus
+au FocusLost * :wa<CR>
+
+" Resize splits when the window is resized
+au VimResized * :wincmd =
+
+" Use sane regexes
+nnoremap / /\v
+vnoremap / /\v
+
+noremap H ^
+noremap L $
+vnoremap L g_
+
+nnoremap gI .
+
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
 nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
+
+" Variable setting {{{
+au FileType vim set foldmethod=marker
+set encoding=utf-8
 set hidden
 set nowrap
 set tabstop=4
@@ -62,37 +85,85 @@ set notimeout ttimeout ttimeoutlen=200
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+filetype on
+" }}}
+
 nnoremap <F6> :set invpaste paste? <CR>
 set pastetoggle=<F6>
 set showmode
 map Y y$
 nmap <silent> ,/ :nohlsearch<CR>
-filetype on
 nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <SPACE> :
 nnoremap <leader><SPACE> :w<CR>
+
+nnoremap <space> za
+vnoremap <space> za
 
 " Save and quit files more easily
 nnoremap <leader>q ZQ " Quit file without saving
 nnoremap <leader>z ZZ " Save and quit file
 
-" Navigate using tags
-map <C-\> :tab split<cr> :exec("tag ".expand("<cword>"))<CR>
-map <A-]> :split <CR> :exec("tag ".expand("<cword>"))<CR>
+" Jumping to tags.
+"
+" Basically, <c-]> jumps to tags (like normal) and <c-\> opens the tag in a new
+" split instead.
+"
+" Both of them will align the destination line to the upper middle part of the
+" screen.  Both will pulse the cursor line so you can see where the hell you
+" are.  <c-\> will also fold everything in the buffer and then unfold just
+" enough for you to see the destination line.
+function! JumpToTag()
+    execute "normal! \<c-]>mzzvzz15\<c-e>"
+    execute "keepjumps normal! `z"
+    Pulse
+endfunction
+function! JumpToTagInSplit()
+    execute "normal! \<c-w>v\<c-]>mzzMzvzz15\<c-e>"
+    execute "keepjumps normal! `z"
+    Pulse
+endfunction
+
+nnoremap <c-]> :silent! call JumpToTag()<cr>:call search_pulse#Pulse()<CR>
+nnoremap <c-\> :silent! call JumpToTagInSplit()<cr> search_pulse#Pulse()<CR>
+
+" Make zO recursively open whatever fold we're in, even if it's partially open.
+nnoremap zO zczO
+
+" Don't move on *
+nnoremap * *<C-O>
+
+" Keep search matches in the middle of the window and pulse the window
+nnoremap n nzzzv:call search_pulse#Pulse()<CR>
+nnoremap N Nzzzv:call search_pulse#Pulse()<CR>
+
+nnoremap g; g;zz:call search_pulse#Pulse()<CR>
+nnoremap g, g,zz:call search_pulse#Pulse()<CR>
+nnoremap <c-o> <c-o>zz:call search_pulse#Pulse()<CR>
+
+" Return to the same line when reopening files
+augroup line_return
+    au!
+    au BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\     execute 'normal! g`"zvzz' |
+	\ endif
+augroup END
 
 set exrc
 set secure
-set colorcolumn=110
+set colorcolumn=120
 highlight ColorColumn ctermbg=darkgray
 syntax on
 set splitbelow
 set splitright
 
 " easier movement between windows
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+noremap <leader>v <C-w>v
 
 " FSwitch mappings
 
@@ -193,8 +264,8 @@ function! s:RunShellCommand(cmdline)
   let expanded_cmdline = a:cmdline
   for part in split(a:cmdline, ' ')
      if part[0] =~ '\v[%#<]'
-        let expanded_part = fnameescape(expand(part))
-        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+	let expanded_part = fnameescape(expand(part))
+	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
      endif
   endfor
   botright new
@@ -219,14 +290,16 @@ nnoremap <leader>y :Unite history/yank<CR>
 "   File finding mappings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>t  :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
-nnoremap <leader>F :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-nnoremap <leader>ft :Unite file_rec/async -start-insert -default-action=tabopen<CR>
-nnoremap <leader>fs :Unite file_rec/async -start-insert -default-action=split<CR>
-nnoremap <leader>fv :Unite file_rec/async -start-insert -default-action=vsplit<CR>
+nnoremap <leader>Ft :Unite file_rec/async -start-insert -default-action=tabopen<CR>
+nnoremap <leader>Fs :Unite file_rec/async -start-insert -default-action=split<CR>
+nnoremap <leader>Fv :Unite file_rec/async -start-insert -default-action=vsplit<CR>
 
 "   Buffer switching
 nnoremap <leader>ss :Unite -quick-match buffer<cr>
+
+let g:airline_powerline_fonts=1
