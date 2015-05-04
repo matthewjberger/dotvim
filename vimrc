@@ -260,7 +260,6 @@ set cursorline
 " Run shell commands
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
-  echo a:cmdline
   let expanded_cmdline = a:cmdline
   for part in split(a:cmdline, ' ')
      if part[0] =~ '\v[%#<]'
@@ -272,14 +271,14 @@ function! s:RunShellCommand(cmdline)
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   "call setline(1, 'You entered:    ' . a:cmdline)
   "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  call setline(1, 'List of installed plugins:')
-  call setline(2,substitute(getline(1),'.','=','g'))
+  "call setline(3,substitute(getline(1),'.','=','g'))
   execute '$read !'. expanded_cmdline
+  execute 'normal! ggdd'
   setlocal nomodifiable
   1
 endfunction
 
-nnoremap <leader>ll :Shell pushd ~/.vim && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd<CR>
+nnoremap <leader>ll :Shell pushd ~/.vim > /dev/null && echo "List of installed plugins" && echo "=========================" && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd > /dev/null<CR> :only<CR>
 
 " Unite.vim mappings
 
