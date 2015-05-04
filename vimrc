@@ -302,3 +302,9 @@ nnoremap <leader>Fv :Unite file_rec/async -start-insert -default-action=vsplit<C
 nnoremap <leader>ss :Unite -quick-match buffer<cr>
 
 let g:airline_powerline_fonts=1
+execute "silent! normal! :AirlineTheme solarized<CR>"
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
