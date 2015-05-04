@@ -14,6 +14,7 @@ set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
 nnoremap <leader>Ev :split $MYVIMRC <CR> :only<cr>;
+nnoremap <leader>eo <C-W>s<C-W>j<C-W>L:e ~/Dropbox/Programming/GitHub<CR>4j
 nnoremap <leader>sv :source $MYVIMRC <CR>;
 
 " Run
@@ -302,9 +303,20 @@ nnoremap <leader>Fv :Unite file_rec/async -start-insert -default-action=vsplit<C
 nnoremap <leader>ss :Unite -quick-match buffer<cr>
 
 let g:airline_powerline_fonts=1
-execute "silent! normal! :AirlineTheme solarized<CR>"
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" Ack {{{
+nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+nnoremap <leader>a :Ack!<space>
+let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+
+" Ack for the last search
+nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+" }}}
+
+" Open a quickfix window for the last search
+nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>

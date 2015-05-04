@@ -115,3 +115,6 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
+[submodule "bundle/vim-ag"]
+	path = bundle/vim-ag
+	url = https://github.com/rking/ag.vim.git
