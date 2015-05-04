@@ -95,7 +95,7 @@ nnoremap <F6> :set invpaste paste? <CR>
 set pastetoggle=<F6>
 set showmode
 map Y y$
-noremap  <silent> <leader>x :noh<cr>:call clearmatches()<cr>
+noremap  <silent> <leader>/ :noh<cr>:call clearmatches()<cr>
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader><SPACE> :w<CR>
 
@@ -212,7 +212,7 @@ nnoremap <silent><F3> :lprevious<CR>
 inoremap <silent><F3> <C-O>:lprevious<CR>
 vnoremap <silent><F3> :lprevious<CR>
 
-set t_Co=16
+set t_Co=256
 colorscheme solarized
 set background=dark
 
@@ -312,7 +312,7 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Open a quickfix window for the last search
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <leader>ls :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Align text
 nnoremap <leader>Al :left<cr>
