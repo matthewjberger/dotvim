@@ -14,8 +14,9 @@ set number
 let mapleader = ","
 nnoremap <leader>ev :split $MYVIMRC <CR>;
 nnoremap <leader>Ev :split $MYVIMRC <CR> :only<cr>;
-nnoremap <leader>eo <C-W>s<C-W>j<C-W>L:e ~/Dropbox/Programming/GitHub<CR>4j
+nnoremap <leader>eo :e ~/Dropbox/Programming/GitHub<CR>4j
 nnoremap <leader>sv :source $MYVIMRC <CR>;
+nnoremap <leader>b  :bw<CR>
 
 " Run
 noremap <F7> :wa<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
@@ -49,6 +50,7 @@ nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
 
 " Variable setting {{{
+set autochdir
 au FileType vim set foldmethod=marker
 set encoding=utf-8
 set hidden
@@ -395,4 +397,13 @@ let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 " }}}
 
+" Show airline tabs
+let g:airline#extensions#tabline#enabled = 1
 
+" Lower cmdline
+set cmdheight=1
+
+" Buffer switching
+nnoremap <leader>gn :bn<CR>
+nnoremap <leader>gp :bp<CR>
+nnoremap <leader>gd :bd<CR>
