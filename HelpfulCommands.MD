@@ -18,11 +18,6 @@ To update all plugins:
 
     git submodule foreach git pull origin master
 
-Compile YouCompleteMe for C++ and Go code completion:
-
-    cd ~/.vim/bundle/YouCompleteMe
-    ./install.sh --clang-completer --gocode-completer
-
 List installed plugins from vim:
 
     <leader>ll
