@@ -93,7 +93,7 @@ nnoremap <F6> :set invpaste paste? <CR>
 set pastetoggle=<F6>
 set showmode
 map Y y$
-nmap <silent> ,/ :nohlsearch<CR>
+noremap  <silent> <leader>x :noh<cr>:call clearmatches()<cr>
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader><SPACE> :w<CR>
 
@@ -240,8 +240,8 @@ call togglebg#map("<F10>")
 
 " Python configuration
 augroup vimrc_autocmds
-    autocmd!
-    "highlight characters past col 120
+autocmd!
+    "der>highlight characters past col 120
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python set nowrap
@@ -309,8 +309,85 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" Ack {{{
+" Open a quickfix window for the last search
+nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Align text
+nnoremap <leader>Al :left<cr>
+nnoremap <leader>Ac :center<cr>
+nnoremap <leader>Ar :right<cr>
+vnoremap <leader>Al :left<cr>
+vnoremap <leader>Ac :center<cr>
+vnoremap <leader>Ar :right<cr>
+
+" Easier linewise reselection
+nnoremap <leader>V V']
+
+" Select line and ignore indentation
+nnoremap vv ^vg_
+
+" Calculator
+inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+
+" Sudo to write
+cmap w!! w !sudo tee % >/dev/null
+
+" Less chording
+nnoremap ; :
+nnoremap : ;
+
+" Source
+vnoremap <leader>S y:execute @@<CR>
+nnoremap <leader>S ^vg_y:execute @@<CR>
+
+" Change case
+nnoremap <C-u> gUiw
+inoremap <C-u> <esc>gUiwea
+
+" Substitute
+noremap <leader>s :%s//<left>
+
+"Gundo
+nnoremap <leader>G :GundoToggle<CR>
+
+" Ack motions {{{
+
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+
 nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+    let @@ = reg_save
+endfunction
+
+" }}}
+
+" Ack {{{
 nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
@@ -318,5 +395,4 @@ let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 " }}}
 
-" Open a quickfix window for the last search
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
