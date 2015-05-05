@@ -118,3 +118,6 @@
 [submodule "bundle/vim-ag"]
 	path = bundle/vim-ag
 	url = https://github.com/rking/ag.vim.git
+[submodule "bundle/neomru"]
+	path = bundle/neomru
+	url = https://github.com/Shougo/neomru.vim.git

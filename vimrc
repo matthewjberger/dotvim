@@ -260,7 +260,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 " Enable search pulse
 set cursorline
 
-" Run shell commands
+" Run shell commands {{{
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
   let expanded_cmdline = a:cmdline
@@ -280,36 +280,59 @@ function! s:RunShellCommand(cmdline)
   setlocal nomodifiable
   1
 endfunction
+" }}}
 
 nnoremap <leader>ll :Shell pushd ~/.vim > /dev/null && echo "List of installed plugins" && echo "=========================" && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd > /dev/null<CR> :only<CR>
 
-" Unite.vim mappings
+" Unite.vim mappings {{{
 
 "   Enable Yank history
-let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_enable=1
+let g:unite_enable_start_insert=1
 nnoremap <leader>y :Unite history/yank<CR>
 
 "   File finding mappings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t  :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+"call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable=1
+let g:unite_prompt='» '
+let g:unite_split_rule = 'botright'
+if executable('ag')
+    let g:unite_source_grep_command='ag'
+    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt=''
+endif
+nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files<cr>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
 
-nnoremap <leader>Ft :Unite file_rec/async -start-insert -default-action=tabopen<CR>
-nnoremap <leader>Fs :Unite file_rec/async -start-insert -default-action=split<CR>
-nnoremap <leader>Fv :Unite file_rec/async -start-insert -default-action=vsplit<CR>
+nnoremap <leader>Ft :Unite file_rec/async -default-action=tabopen<CR>
+nnoremap <leader>Fs :Unite file_rec/async -default-action=split<CR>
+nnoremap <leader>Fv :Unite file_rec/async -default-action=vsplit<CR>
 
 "   Buffer switching
-nnoremap <leader>ss :Unite -quick-match buffer<cr>
+nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
 
+" }}}
+
+" Airline {{{
 let g:airline_powerline_fonts=1
 
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+" }}}
+
 au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+au Syntax   * RainbowParenthesesLoadRound
+au Syntax   * RainbowParenthesesLoadSquare
+au Syntax   * RainbowParenthesesLoadBraces
 
 " Open a quickfix window for the last search
 nnoremap <silent> <leader>ls :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
