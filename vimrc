@@ -243,7 +243,7 @@ call togglebg#map("<F10>")
 " Python configuration
 augroup vimrc_autocmds
 autocmd!
-    "der>highlight characters past col 120
+    "highlight characters past col 120
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python set nowrap
@@ -293,7 +293,7 @@ nnoremap <leader>y :Unite history/yank<CR>
 
 "   File finding mappings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec/async','sorters','sorter_rank', )
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable=1
