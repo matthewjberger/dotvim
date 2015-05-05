@@ -104,7 +104,7 @@ vnoremap <space> za
 
 " Save and quit files more easily
 nnoremap <leader>q ZQ " Quit file without saving
-nnoremap <leader>z ZZ " Save and quit file
+nnoremap <leader>Z ZZ " Save and quit file
 
 " Jumping to tags.
 "
@@ -244,7 +244,7 @@ call togglebg#map("<F10>")
 augroup vimrc_autocmds
 autocmd!
     "highlight characters past col 120
-    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python set nowrap
 augroup END
@@ -322,10 +322,15 @@ nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
 " Airline {{{
 let g:airline_powerline_fonts=1
 
+" Show airline tabs
+"let g:airline#extensions#tabline#enabled = 1
+
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
 let g:airline_symbols.space = "\ua0"
+
 " }}}
 
 au VimEnter * RainbowParenthesesToggle
@@ -419,9 +424,6 @@ let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 " }}}
 
-" Show airline tabs
-let g:airline#extensions#tabline#enabled = 1
-
 " Lower cmdline
 set cmdheight=1
 
@@ -429,3 +431,21 @@ set cmdheight=1
 nnoremap <leader>gn :bn<CR>
 nnoremap <leader>gp :bp<CR>
 nnoremap <leader>gd :bd<CR>
+
+" Fold navigation {{{
+nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
+nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
+"}}}
