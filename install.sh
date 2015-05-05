@@ -20,12 +20,10 @@ cd ~/.vim/bundle/YouCompleteMe
 cd ~/.vim/bundle/vimproc
 make
 
-# Make the fonts directory for vim-airline
-mkdir -p ~/.fonts
-
-# Copy Ubuntu font, then install and set the font
-cp ~/.vim/UbuntuMono/* ~/.fonts
-fc-cache -vf ~/.fonts
+# Install powerline fonts
+git clone https://github.com/powerline/fonts.git ~/.vim/powerlinefonts
+cd ~/.vim/powerlinefonts
+./install.sh
 gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 12"
 echo "If vim-airline doesn't look right, you may have to go into your terminal properties
 and make sure that \"Use the system fixed width font\" under the General tab is unchecked."
