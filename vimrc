@@ -1,10 +1,50 @@
 set nocompatible
 filetype off
 
-" Pathogen
-runtime bundle/pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-execute pathogen#helptags()
+" Plugin List {{{
+call plug#begin('~/.vim/bundle/')
+Plug 'junegunn/seoul256.vim'
+Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
+Plug 'yonchu/accelerated-smooth-scroll'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-surround'
+Plug 'sjl/gundo.vim'
+Plug 'Shutnik/jshint2.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/unite.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'srooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'klen/python-mode'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'bling/vim-airline'
+Plug 'jplaut/vim-arduino-ino'
+Plug 'altercation/vim-colors-solarized'
+Plug 'skammer/vim-css-color'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'dahu/vim-fanfingtastic'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'derekwyatt/vim-protodef'
+Plug 'davidhalter/jedi-vim'
+Plug 'tommcdo/vim-lion'
+Plug 'inside/vim-search-pulse'
+Plug 'rstacruz/sparkup'
+Plug 'nvie/vim-togglemouse'
+Plug 'vim-ruby/vim-ruby'
+call plug#end
+"}}}
+
 syntax on
 filetype plugin indent on
 
