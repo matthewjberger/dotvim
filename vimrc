@@ -20,7 +20,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/unite.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'srooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'klen/python-mode'
 Plug 'kien/rainbow_parentheses.vim'
