@@ -300,78 +300,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 " Enable search pulse
 set cursorline
 
-" Run shell commands {{{
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-     if part[0] =~ '\v[%#<]'
-	let expanded_part = fnameescape(expand(part))
-	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-     endif
-  endfor
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  "call setline(1, 'You entered:    ' . a:cmdline)
-  "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  "call setline(3,substitute(getline(1),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  execute 'normal! ggdd'
-  setlocal nomodifiable
-  1
-endfunction
-" }}}
-
-nnoremap <leader>ll :Shell pushd ~/.vim > /dev/null && echo "List of installed plugins" && echo "=========================" && git submodule \| sed 's/.*bundle\///' \| awk '{print $1}' && popd > /dev/null<CR> :only<CR>
-
-" Unite.vim mappings {{{
-
-"   Enable Yank history
-let g:unite_source_history_yank_enable=1
-let g:unite_enable_start_insert=1
-nnoremap <leader>y :Unite history/yank<CR>
-
-"   File finding mappings
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable=1
-let g:unite_prompt='» '
-let g:unite_split_rule = 'botright'
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt=''
-endif
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru file_mru<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
-
-nnoremap <leader>Ft :Unite file_rec/async -default-action=tabopen<CR>
-nnoremap <leader>Fs :Unite file_rec/async -default-action=split<CR>
-nnoremap <leader>Fv :Unite file_rec/async -default-action=vsplit<CR>
-
-"   Buffer switching
-nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
-
-" }}}
-
-" Airline {{{
-let g:airline_powerline_fonts=1
-
-" Show airline tabs
-"let g:airline#extensions#tabline#enabled = 1
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_symbols.space = "\ua0"
-
-" }}}
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax   * RainbowParenthesesLoadRound
@@ -419,6 +347,17 @@ noremap <leader>s :%s//<left>
 "Gundo
 nnoremap <leader>G :GundoToggle<CR>
 
+" Lower cmdline
+set cmdheight=1
+
+" Buffer switching
+nnoremap <leader>gn :bn<CR>
+nnoremap <leader>gp :bp<CR>
+nnoremap <leader>gd :bd<CR>
+
+" Remap yank register to "
+nnoremap "" "0
+
 " Ack motions {{{
 
 " Motions to Ack for things.  Works with pretty much everything, including:
@@ -455,7 +394,6 @@ function! s:AckMotion(type) abort
 endfunction
 
 " }}}
-
 " Ack {{{
 nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
@@ -463,15 +401,6 @@ let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 " Ack for the last search
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 " }}}
-
-" Lower cmdline
-set cmdheight=1
-
-" Buffer switching
-nnoremap <leader>gn :bn<CR>
-nnoremap <leader>gp :bp<CR>
-nnoremap <leader>gd :bd<CR>
-
 " Fold navigation {{{
 nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
 nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
@@ -489,6 +418,71 @@ function! NextClosedFold(dir)
     endif
 endfunction
 "}}}
+" Run shell commands {{{
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+	let expanded_part = fnameescape(expand(part))
+	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  "call setline(1, 'You entered:    ' . a:cmdline)
+  "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  "call setline(3,substitute(getline(1),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  execute 'normal! ggdd'
+  setlocal nomodifiable
+  1
+endfunction
+" }}}
+" Unite.vim mappings {{{
 
-" Remap yank register to "
-nnoremap "" "0
+"   Enable Yank history
+let g:unite_source_history_yank_enable=1
+let g:unite_enable_start_insert=1
+nnoremap <leader>y :Unite history/yank<CR>
+
+"   File finding mappings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable=1
+let g:unite_prompt='» '
+let g:unite_split_rule = 'botright'
+if executable('ag')
+    let g:unite_source_grep_command='ag'
+    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt=''
+endif
+nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files<cr>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
+
+nnoremap <leader>Ft :Unite file_rec/async -default-action=tabopen<CR>
+nnoremap <leader>Fs :Unite file_rec/async -default-action=split<CR>
+nnoremap <leader>Fv :Unite file_rec/async -default-action=vsplit<CR>
+
+"   Buffer switching
+nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
+
+" }}}
+" Airline {{{
+let g:airline_powerline_fonts=1
+
+" Show airline tabs
+"let g:airline#extensions#tabline#enabled = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.space = "\ua0"
+
+" }}}
