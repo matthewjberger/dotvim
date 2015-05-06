@@ -14,14 +14,14 @@ git submodule update --init --recursive
 
 # Build the YouCompleteMe code completion plugin
 $dir="~/.vim/bundle/YouCompleteMe"
-if [ -d $dir ]; then
+if [ -d "$dir" ]; then
     cd $dir
     ./install.sh --clang-completer --gocode-completer
 fi
 
 # Build the vimproc plugin
 $dir="~/.vim/bundle/vimproc"
-if [ -d $dir ]; then
+if [ -d "$dir" ]; then
     cd $dir
     make
 fi
