@@ -42,7 +42,7 @@ Plug 'inside/vim-search-pulse'
 Plug 'rstacruz/sparkup'
 Plug 'nvie/vim-togglemouse'
 Plug 'vim-ruby/vim-ruby'
-call plug#end
+call plug#end()
 "}}}
 
 syntax on
