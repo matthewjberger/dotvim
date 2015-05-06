@@ -12,18 +12,28 @@ cd ~/.vim
 git submodule init
 git submodule update --init --recursive
 
-# Build the YouCompletMe code completion plugin
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh --clang-completer --gocode-completer
+# Build the YouCompleteMe code completion plugin
+$dir="~/.vim/bundle/YouCompleteMe"
+if [ -d $dir ]; then
+    cd $dir
+    ./install.sh --clang-completer --gocode-completer
+fi
 
 # Build the vimproc plugin
-cd ~/.vim/bundle/vimproc
-make
+$dir="~/.vim/bundle/vimproc"
+if [ -d $dir ]; then
+    cd $dir
+    make
+fi
 
 # Install powerline fonts
-git clone https://github.com/powerline/fonts.git ~/.vim/powerlinefonts
-cd ~/.vim/powerlinefonts
-./install.sh
-gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 12"
-echo "If vim-airline doesn't look right, you may have to go into your terminal properties
-and make sure that \"Use the system fixed width font\" under the General tab is unchecked."
+$dir="~/.vim/powerlinefonts"
+git clone https://github.com/powerline/fonts.git $dir
+if [ -d "$dir"]; then
+    cd $dir
+    ./install.sh
+    gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 12"
+    echo "If vim-airline doesn't look right, you may have to go into your terminal properties
+    and make sure that \"Use the system fixed width font\" under the General tab is unchecked."
+    rm -rf $dir
+fi

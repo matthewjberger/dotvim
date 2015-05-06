@@ -449,3 +449,6 @@ function! NextClosedFold(dir)
     endif
 endfunction
 "}}}
+
+" Remap yank register to "
+nnoremap "" "0
