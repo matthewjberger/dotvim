@@ -3,6 +3,7 @@ filetype off
 
 " Plugin List {{{
 call plug#begin('~/.vim/bundle/')
+
 Plug 'junegunn/seoul256.vim'
 Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
 Plug 'yonchu/accelerated-smooth-scroll'
@@ -42,6 +43,8 @@ Plug 'inside/vim-search-pulse'
 Plug 'rstacruz/sparkup'
 Plug 'nvie/vim-togglemouse'
 Plug 'vim-ruby/vim-ruby'
+Plug 'vim-scripts/hexHighlight.vim'
+
 call plug#end()
 "}}}
 
@@ -130,7 +133,135 @@ set softtabstop=4
 set expandtab
 filetype on
 " }}}
+" Ack motions {{{
 
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+    let @@ = reg_save
+endfunction
+
+" }}}
+" Ack {{{
+nnoremap <leader>a :Ack!<space>
+let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+
+" Ack for the last search
+nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+" }}}
+" Fold navigation {{{
+nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
+nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
+"}}}
+" Run shell commands {{{
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+    let expanded_cmdline = a:cmdline
+    for part in split(a:cmdline, ' ')
+        if part[0] =~ '\v[%#<]'
+            let expanded_part = fnameescape(expand(part))
+            let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+        endif
+    endfor
+    botright new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    "call setline(1, 'You entered:    ' . a:cmdline)
+    "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+    "call setline(3,substitute(getline(1),'.','=','g'))
+    execute '$read !'. expanded_cmdline
+    execute 'normal! ggdd'
+    setlocal nomodifiable
+    1
+endfunction
+" }}}
+" Unite.vim mappings {{{
+
+"   Enable Yank history
+let g:unite_source_history_yank_enable=1
+let g:unite_enable_start_insert=1
+nnoremap <leader>y :Unite history/yank<CR>
+
+"   File finding mappings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable=1
+let g:unite_prompt='» '
+let g:unite_split_rule = 'botright'
+if executable('ag')
+    let g:unite_source_grep_command='ag'
+    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt=''
+endif
+nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files<cr>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
+
+nnoremap <leader>Ft :Unite file_rec/async -default-action=tabopen<CR>
+nnoremap <leader>Fs :Unite file_rec/async -default-action=split<CR>
+nnoremap <leader>Fv :Unite file_rec/async -default-action=vsplit<CR>
+
+"   Buffer switching
+nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
+
+" }}}
+" Airline {{{
+let g:airline_powerline_fonts=1
+
+" Show airline tabs
+"let g:airline#extensions#tabline#enabled = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.space = "\ua0"
+
+" }}}
+" misc {{{
 nnoremap <F6> :set invpaste paste? <CR>
 set pastetoggle=<F6>
 set showmode
@@ -187,9 +318,9 @@ nnoremap <c-o> <c-o>zz:call search_pulse#Pulse()<CR>
 augroup line_return
     au!
     au BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\     execute 'normal! g`"zvzz' |
-	\ endif
+                \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                \     execute 'normal! g`"zvzz' |
+                \ endif
 augroup END
 
 set exrc
@@ -282,7 +413,7 @@ call togglebg#map("<F10>")
 
 " Python configuration
 augroup vimrc_autocmds
-autocmd!
+    autocmd!
     "highlight characters past col 120
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black autocmd Filetype python match Excess /\%120v.*/
     autocmd Filetype python match Excess /\%120v.*/
@@ -358,131 +489,17 @@ nnoremap <leader>gd :bd<CR>
 " Remap yank register to "
 nnoremap "" "0
 
-" Ack motions {{{
-
-" Motions to Ack for things.  Works with pretty much everything, including:
-"
-"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
-"
-" Awesome.
-"
-" Note: If the text covered by a motion contains a newline it won't work.  Ack
-" searches line-by-line.
-
-nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
     endif
-endfunction
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
-function! s:AckMotion(type) abort
-    let reg_save = @@
-
-    call s:CopyMotionForType(a:type)
-
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-    let @@ = reg_save
-endfunction
-
-" }}}
-" Ack {{{
-nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
-
-" Ack for the last search
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-" }}}
-" Fold navigation {{{
-nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
-nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
-function! NextClosedFold(dir)
-    let cmd = 'norm!z' . a:dir
-    let view = winsaveview()
-    let [l0, l, open] = [0, view.lnum, 1]
-    while l != l0 && open
-        exe cmd
-        let [l0, l] = [l, line('.')]
-        let open = foldclosed(l) < 0
-    endwhile
-    if open
-        call winrestview(view)
-    endif
-endfunction
+" Highlight hex codes with their respect color
+if exists('*HexHighlight()')
+    nmap <leader>h :call HexHighlight()<Return>
+endif
 "}}}
-" Run shell commands {{{
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-     if part[0] =~ '\v[%#<]'
-	let expanded_part = fnameescape(expand(part))
-	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-     endif
-  endfor
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  "call setline(1, 'You entered:    ' . a:cmdline)
-  "call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  "call setline(3,substitute(getline(1),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  execute 'normal! ggdd'
-  setlocal nomodifiable
-  1
-endfunction
-" }}}
-" Unite.vim mappings {{{
-
-"   Enable Yank history
-let g:unite_source_history_yank_enable=1
-let g:unite_enable_start_insert=1
-nnoremap <leader>y :Unite history/yank<CR>
-
-"   File finding mappings
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable=1
-let g:unite_prompt='» '
-let g:unite_split_rule = 'botright'
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt=''
-endif
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru file_mru<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
-
-nnoremap <leader>Ft :Unite file_rec/async -default-action=tabopen<CR>
-nnoremap <leader>Fs :Unite file_rec/async -default-action=split<CR>
-nnoremap <leader>Fv :Unite file_rec/async -default-action=vsplit<CR>
-
-"   Buffer switching
-nnoremap <leader>ss :Unite -quick-match -auto-preview buffer<cr>
-
-" }}}
-" Airline {{{
-let g:airline_powerline_fonts=1
-
-" Show airline tabs
-"let g:airline#extensions#tabline#enabled = 1
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_symbols.space = "\ua0"
-
-" }}}
