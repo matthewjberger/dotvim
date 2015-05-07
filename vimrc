@@ -342,31 +342,31 @@ noremap <leader>v <C-w>v
 " FSwitch mappings
 
 " Switch to the file and load it into the current window
-nmap <silent> <Leader>of :FSHere<cr>
+nnoremap <silent> <Leader>of :FSHere<cr>
 
 " Switch to the file and load it into the window on the right
-nmap <silent> <Leader>ol :FSRight<cr>
+nnoremap <silent> <Leader>ol :FSRight<cr>
 
 " Switch to the file and load it into a new window split on the right
-nmap <silent> <Leader>oL :FSSplitRight<cr>
+nnoremap <silent> <Leader>oL :FSSplitRight<cr>
 
 " Switch to the file and load it into the window on the left
-nmap <silent> <Leader>oh :FSLeft<cr>
+nnoremap <silent> <Leader>oh :FSLeft<cr>
 
 " Switch to the file and load it into a new window split on the left
-nmap <silent> <Leader>oH :FSSplitLeft<cr>
+nnoremap <silent> <Leader>oH :FSSplitLeft<cr>
 
 " Switch to the file and load it into the window above
-nmap <silent> <Leader>ok :FSAbove<cr>
+nnoremap <silent> <Leader>ok :FSAbove<cr>
 
 " Switch to the file and load it into a new window split above
-nmap <silent> <Leader>oK :FSSplitAbove<cr>
+nnoremap <silent> <Leader>oK :FSSplitAbove<cr>
 
 " Switch to the file and load it into the window below
-nmap <silent> <Leader>oj :FSBelow<cr>
+nnoremap <silent> <Leader>oj :FSBelow<cr>
 
 " Switch to the file and load it into a new window split below
-nmap <silent> <Leader>oJ :FSSplitBelow<cr>
+nnoremap <silent> <Leader>oJ :FSSplitBelow<cr>
 
 " jshint validation
 nnoremap <silent><F1> :JSHint<CR>
