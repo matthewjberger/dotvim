@@ -7,8 +7,8 @@ I use junegunn's vim-plug for plugin management.
 
 Clone the Repo and install plugins:
 
-    git clone https://github.com/matthewjberger/DotVim.git ~/.vim
-    && cd ~/.vim
-    && git submodule init
-    && git submodule update
-    && vim +PlugInstall +qa
+    bash -c 'git clone https://github.com/matthewjberger/DotVim.git ~/.vim
+    cd ~/.vim
+    git submodule init
+    git submodule update
+    vim +PlugInstall +qa'
