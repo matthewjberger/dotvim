@@ -4,7 +4,6 @@ filetype off
 " Plugin List {{{
 call plug#begin('~/.vim/bundle/')
 
-Plug 'junegunn/seoul256.vim'
 Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
 Plug 'yonchu/accelerated-smooth-scroll'
 Plug 'Raimondi/delimitMate'
