@@ -5,11 +5,10 @@ I use junegunn's vim-plug for plugin management.
 
 ##Installation:
 
-Clone the Repo:
+Clone the Repo and install plugins:
 
     git clone https://github.com/matthewjberger/DotVim.git ~/.vim
-
-Install plugins:
-
-    vim
-    :PlugInstall
+    && cd ~/.vim
+    && git submodule init
+    && git submodule update
+    && vim +PlugInstall +qa
