@@ -6,6 +6,8 @@ call plug#begin('~/.vim/bundle/')
 
 Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
 Plug 'yonchu/accelerated-smooth-scroll'
+Plug 'airblade/vim-gitgutter'
+Plug 'xolox/vim-notes'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
