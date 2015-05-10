@@ -4,59 +4,62 @@ filetype off
 " Plugin List {{{
 call plug#begin('~/.vim/bundle/')
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
-Plug 'yonchu/accelerated-smooth-scroll'
 Plug 'airblade/vim-gitgutter'
-Plug 'xolox/vim-notes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'christoomey/vim-sort-motion'
+Plug 'dahu/vim-fanfingtastic'
+Plug 'davidhalter/jedi-vim'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'derekwyatt/vim-protodef'
+Plug 'ervandew/eclim'
+Plug 'inside/vim-search-pulse'
+Plug 'jplaut/vim-arduino-ino'
+Plug 'junegunn/vim-peekaboo'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'klen/python-mode'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
+Plug 'nvie/vim-togglemouse'
 Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-heroku'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-afterimage'
-Plug 'sjl/gundo.vim'
-Plug 'Shutnik/jshint2.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/unite.vim'
+Plug 'rking/ag.vim'
+Plug 'rstacruz/sparkup'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
-Plug 'klen/python-mode'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'majutsushi/tagbar'
-Plug 'mileszs/ack.vim'
-Plug 'rking/ag.vim'
-Plug 'bling/vim-airline'
-Plug 'jplaut/vim-arduino-ino'
-Plug 'altercation/vim-colors-solarized'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shutnik/jshint2.vim'
+Plug 'sjl/gundo.vim'
 Plug 'skammer/vim-css-color'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
-Plug 'dahu/vim-fanfingtastic'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'derekwyatt/vim-protodef'
-Plug 'davidhalter/jedi-vim'
 Plug 'tommcdo/vim-lion'
-Plug 'inside/vim-search-pulse'
-Plug 'rstacruz/sparkup'
-Plug 'nvie/vim-togglemouse'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-afterimage'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-heroku'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/hexHighlight.vim'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
+Plug 'yonchu/accelerated-smooth-scroll'
 
 call plug#end()
 "}}}
@@ -105,65 +108,65 @@ inoremap <c-e> <esc>A
 nnoremap <leader><ESC> :qa!<CR>;
 nnoremap <leader>w  :wa<CR>;
 
-" Variable setting {{{
+" variable setting {{{
+au filetype vim set foldmethod=marker
+autocmd filetype python set expandtab
+filetype on
 set autochdir
-au FileType vim set foldmethod=marker
-set encoding=utf-8
-set hidden
-set nowrap
-set tabstop=4
-set backspace=indent,eol,start
 set autoindent
+set backspace=indent,eol,start
+set cmdheight=2
+set confirm
 set copyindent
-set shiftround
-set showmatch
+set encoding=utf-8
+set expandtab
+set hidden
+set history=1000
+set hlsearch
 set ignorecase
+set incsearch
+set laststatus=2
+set nobackup
+set noerrorbells
+set nostartofline
+set noswapfile
+set notimeout ttimeout ttimeoutlen=200
+set nowrap
+set ruler
+set shiftround
+set shiftwidth=4
+set showcmd
+set showmatch
+set si
 set smartcase
 set smarttab
-set hlsearch
-set incsearch
-set history=1000
-set undolevels=1000
-set wildignore=*.swp,*.bak,*.pyc,*.class
-set title
-set visualbell
-set noerrorbells
-set nobackup
-set noswapfile
-autocmd filetype python set expandtab
-set wildmenu
-set showcmd
-set si
-set nostartofline
-set ruler
-set laststatus=2
-set confirm
-set t_vb=
-set cmdheight=2
-set notimeout ttimeout ttimeoutlen=200
-set shiftwidth=4
 set softtabstop=4
-set expandtab
-filetype on
+set t_vb=
+set tabstop=4
+set title
+set undolevels=1000
+set visualbell
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildmenu
 " }}}
 " Ack motions {{{
 
-" Motions to Ack for things.  Works with pretty much everything, including:
+" motions to ack for things.  works with pretty much everything, including:
 "
-"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"   w, w, e, e, b, b, t*, f*, i*, a*, and custom text objects
 "
-" Awesome.
+" awesome.
 "
-" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" note: if the text covered by a motion contains a newline it won't work.  ack
 " searches line-by-line.
 
-nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+nnoremap <silent> <leader>a :set opfunc=<sid>ackmotion<cr>g@
+xnoremap <silent> <leader>a :<c-u>call <sid>ackmotion(visualmode())<cr>
 
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+nnoremap <bs> :ack! '\b<c-r><c-w>\b'<cr>
+xnoremap <silent> <bs> :<c-u>call <sid>ackmotion(visualmode())<cr>
 
-function! s:CopyMotionForType(type)
+function! s:copymotionfortype(type)
     if a:type ==# 'v'
         silent execute "normal! `<" . a:type . "`>y"
     elseif a:type ==# 'char'
@@ -171,12 +174,12 @@ function! s:CopyMotionForType(type)
     endif
 endfunction
 
-function! s:AckMotion(type) abort
+function! s:ackmotion(type) abort
     let reg_save = @@
 
-    call s:CopyMotionForType(a:type)
+    call s:copymotionfortype(a:type)
 
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+    execute "normal! :ack! --literal " . shellescape(@@) . "\<cr>"
 
     let @@ = reg_save
 endfunction
