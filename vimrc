@@ -13,7 +13,6 @@ Plug 'davidhalter/jedi-vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'derekwyatt/vim-protodef'
 Plug 'ervandew/eclim'
-Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-search-pulse'
 Plug 'jplaut/vim-arduino-ino'
@@ -74,12 +73,53 @@ filetype plugin indent on
 " Make all sorts case insensitive
 let g:sort_motion_flags = "ui"
 
+" Ultisnips and YCM {{{
+set completeopt=menuone
+let g:ycm_add_preview_to_completeopt = 0
+
+let g:UltiSnipsExpandTrigger = '<CR>'
+let g:UltiSnipsExpandTrigger       ="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" Enable tabbing through list of results
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+" Expand snippet or return
+let g:ulti_expand_res = 0
+function! Ulti_ExpandOrEnter()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res
+        return ''
+    else
+        return "\<return>"
+endfunction
+
+" Set <space> as primary trigger
+inoremap <return> <C-R>=Ulti_ExpandOrEnter()<CR>
+
 function! UltiSnipsCallUnite()
   Unite -start-insert -winheight=100 -immediately -no-empty ultisnips
   return ''
 endfunction
 
 inoremap <silent> <F3> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+"}}}
 
 inoremap jk <ESC>;
 nnoremap<F8> :TagbarToggle<CR>
