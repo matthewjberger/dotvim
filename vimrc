@@ -67,6 +67,9 @@ call plug#end()
 syntax on
 filetype plugin indent on
 
+" Make all sorts case insensitive
+let g:sort_motion_flags = "ui"
+
 inoremap jk <ESC>;
 nnoremap<F8> :TagbarToggle<CR>
 set number
