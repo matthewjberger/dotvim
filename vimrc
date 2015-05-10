@@ -13,11 +13,14 @@ Plug 'davidhalter/jedi-vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'derekwyatt/vim-protodef'
 Plug 'ervandew/eclim'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
 Plug 'inside/vim-search-pulse'
 Plug 'jplaut/vim-arduino-ino'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'klen/python-mode'
+Plug 'Lokaltog/vim-easymotion'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'nvie/vim-togglemouse'
@@ -31,6 +34,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shutnik/jshint2.vim'
+Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
 Plug 'skammer/vim-css-color'
 Plug 'tommcdo/vim-lion'
@@ -69,6 +73,13 @@ filetype plugin indent on
 
 " Make all sorts case insensitive
 let g:sort_motion_flags = "ui"
+
+function! UltiSnipsCallUnite()
+  Unite -start-insert -winheight=100 -immediately -no-empty ultisnips
+  return ''
+endfunction
+
+inoremap <silent> <F3> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 
 inoremap jk <ESC>;
 nnoremap<F8> :TagbarToggle<CR>
@@ -387,20 +398,20 @@ nnoremap <silent> <Leader>oj :FSBelow<cr>
 " Switch to the file and load it into a new window split below
 nnoremap <silent> <Leader>oJ :FSSplitBelow<cr>
 
-" jshint validation
-nnoremap <silent><F1> :JSHint<CR>
-inoremap <silent><F1> <C-O>:JSHint<CR>
-vnoremap <silent><F1> :JSHint<CR>
+"" jshint validation
+"nnoremap <silent><F1> :JSHint<CR>
+"inoremap <silent><F1> <C-O>:JSHint<CR>
+"vnoremap <silent><F1> :JSHint<CR>
 
-" show next jshint error
-nnoremap <silent><F2> :lnext<CR>
-inoremap <silent><F2> <C-O>:lnext<CR>
-vnoremap <silent><F2> :lnext<CR>
+"" show next jshint error
+"nnoremap <silent><F2> :lnext<CR>
+"inoremap <silent><F2> <C-O>:lnext<CR>
+"vnoremap <silent><F2> :lnext<CR>
 
-" show previous jshint error
-nnoremap <silent><F3> :lprevious<CR>
-inoremap <silent><F3> <C-O>:lprevious<CR>
-vnoremap <silent><F3> :lprevious<CR>
+"" show previous jshint error
+"nnoremap <silent><F3> :lprevious<CR>
+"inoremap <silent><F3> <C-O>:lprevious<CR>
+"vnoremap <silent><F3> :lprevious<CR>
 
 set t_Co=256
 colorscheme solarized
