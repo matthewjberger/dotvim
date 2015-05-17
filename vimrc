@@ -5,6 +5,16 @@ filetype off
 
 call plug#begin('~/.vim/bundle/')
 
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thoughtbot/vim-rspec'
+Plug 'zhaocai/GoldenView.vim'
+Plug 'programble/itchy.vim'
+Plug 'Osse/double-tap'
+Plug 'OrangeT/vim-csharp'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'goldfeld/vim-seek'
+Plug 'ap/vim-css-color'
+Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
@@ -13,7 +23,6 @@ Plug 'dahu/vim-fanfingtastic'
 Plug 'davidhalter/jedi-vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'derekwyatt/vim-protodef'
-Plug 'ervandew/eclim'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-search-pulse'
 Plug 'jplaut/vim-arduino-ino'
@@ -36,7 +45,6 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shutnik/jshint2.vim'
 Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
-Plug 'skammer/vim-css-color'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
@@ -287,6 +295,19 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 " }}}
+" Go mappings {{{
+let g:go_play_open_browser = 0
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 0
+let g:go_bin_path = expand("~/.gotools")
+let g:go_bin_path = "/home/fatih/.mypath"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1"
+"}}}
 " Misc {{{
 " Make all sorts case insensitive
 let g:sort_motion_flags = "ui"
@@ -552,7 +573,7 @@ inoremap <C-u> <esc>gUiwea
 noremap <leader>s :%s//<left>
 
 "Gundo
-nnoremap <leader>G :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
 
 " Lower cmdline
 set cmdheight=1
@@ -578,4 +599,11 @@ endfunc
 if exists('*HexHighlight()')
     nmap <leader>h :call HexHighlight()<Return>
 endif
+
+" Enable backups
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
 "}}}
