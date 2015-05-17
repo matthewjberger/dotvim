@@ -1,7 +1,8 @@
+" Matthew Berger's vimrc
+" Plugin List {{{
 set nocompatible
 filetype off
 
-" Plugin List {{{
 call plug#begin('~/.vim/bundle/')
 
 Plug 'airblade/vim-gitgutter'
@@ -65,14 +66,11 @@ Plug 'xolox/vim-notes'
 Plug 'yonchu/accelerated-smooth-scroll'
 
 call plug#end()
-"}}}
+
 
 syntax on
 filetype plugin indent on
-
-" Make all sorts case insensitive
-let g:sort_motion_flags = "ui"
-
+"}}}
 " Ultisnips and YCM {{{
 set completeopt=menuone
 let g:ycm_add_preview_to_completeopt = 0
@@ -120,49 +118,7 @@ endfunction
 
 inoremap <silent> <F3> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 "}}}
-
-inoremap jk <ESC>;
-nnoremap<F8> :TagbarToggle<CR>
-set number
-let mapleader = ","
-nnoremap <leader>ev :split $MYVIMRC <CR>;
-nnoremap <leader>Ev :split $MYVIMRC <CR> :only<cr>;
-nnoremap <leader>eo :e ~/Dropbox/Programming/GitHub<CR>4j
-nnoremap <leader>sv :source $MYVIMRC <CR>;
-nnoremap <leader>b  :bw<CR>
-
-" Run
-noremap <F7> :wa<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
-
-" Rebuild and Run
-noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
-
-" Rebuild
-noremap <F4> :wa<CR> :make <bar> copen<CR>;
-
-" Save when losing focus
-au FocusLost * :wa<CR>
-
-" Resize splits when the window is resized
-au VimResized * :wincmd =
-
-" Use sane regexes
-nnoremap / /\v
-vnoremap / /\v
-
-noremap H ^
-noremap L $
-vnoremap L g_
-
-nnoremap gI .
-
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
-
-nnoremap <leader><ESC> :qa!<CR>;
-nnoremap <leader>w  :wa<CR>;
-
-" variable setting {{{
+" Variable setting {{{
 au filetype vim set foldmethod=marker
 autocmd filetype python set expandtab
 filetype on
@@ -331,7 +287,57 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 " }}}
-" misc {{{
+" Misc {{{
+" Make all sorts case insensitive
+let g:sort_motion_flags = "ui"
+
+inoremap jk <ESC>;
+nnoremap<F8> :TagbarToggle<CR>
+set number
+let mapleader = ","
+nnoremap <leader>ev :split $MYVIMRC <CR>;
+nnoremap <leader>Ev :split $MYVIMRC <CR> :only<cr>;
+nnoremap <leader>eo :e ~/Dropbox/Programming/GitHub<CR>4j
+nnoremap <leader>sv :source $MYVIMRC <CR>;
+nnoremap <leader>b  :bw<CR>
+
+" Run
+noremap <F7> :wa<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
+
+" Rebuild and Run
+noremap <F5> :wa<CR> :silent !clear; make OBJ_NAME="vimTest"<CR> :!echo "--------------- Running ---------------"; echo; "./vimTest"<CR>;
+
+" Rebuild
+noremap <F4> :wa<CR> :make <bar> copen<CR>;
+
+" Save when losing focus
+au FocusLost * :wa<CR>
+
+" Resize splits when the window is resized
+au VimResized * :wincmd =
+
+" Use sane regexes
+nnoremap / /\v
+vnoremap / /\v
+
+noremap H ^
+noremap L $
+
+" Move to last non-blank character of line
+vnoremap L g_
+
+" Jump to last change
+nnoremap gI `.
+
+" Highlight last inserted text
+nnoremap gV `[v`]
+
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
+nnoremap <leader><ESC> :qa!<CR>;
+nnoremap <leader>w  :wa<CR>;
+
 nnoremap <F6> :set invpaste paste? <CR>
 set pastetoggle=<F6>
 set showmode
