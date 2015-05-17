@@ -5,24 +5,17 @@ filetype off
 
 call plug#begin('~/.vim/bundle/')
 
-Plug 'terryma/vim-multiple-cursors'
-Plug 'thoughtbot/vim-rspec'
-Plug 'zhaocai/GoldenView.vim'
-Plug 'programble/itchy.vim'
-Plug 'Osse/double-tap'
-Plug 'OrangeT/vim-csharp'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'goldfeld/vim-seek'
-Plug 'ap/vim-css-color'
-Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
+Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-sort-motion'
 Plug 'dahu/vim-fanfingtastic'
 Plug 'davidhalter/jedi-vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'derekwyatt/vim-protodef'
+Plug 'fatih/vim-go'
+Plug 'goldfeld/vim-seek'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-search-pulse'
 Plug 'jplaut/vim-arduino-ino'
@@ -33,6 +26,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'nvie/vim-togglemouse'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'OrangeT/vim-csharp'
+Plug 'Osse/double-tap'
+Plug 'programble/itchy.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'rking/ag.vim'
 Plug 'rstacruz/sparkup'
@@ -45,6 +42,8 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shutnik/jshint2.vim'
 Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thoughtbot/vim-rspec'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
@@ -72,7 +71,7 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 Plug 'yonchu/accelerated-smooth-scroll'
-
+Plug 'zhaocai/GoldenView.vim'
 call plug#end()
 
 
@@ -560,6 +559,10 @@ cmap w!! w !sudo tee % >/dev/null
 " Less chording
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+cnoremap ; :
+cnoremap : ;
 
 " Source
 vnoremap <leader>S y:execute @@<CR>
