@@ -553,10 +553,6 @@ cmap w!! w !sudo tee % >/dev/null
 vnoremap <leader>S y:execute @@<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>
 
-" Change case
-nnoremap <C-u> gUiw
-inoremap <C-u> <esc>gUiwea
-
 " Substitute
 noremap <leader>s :%s//<left>
 
