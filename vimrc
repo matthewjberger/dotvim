@@ -15,7 +15,6 @@ Plug 'davidhalter/jedi-vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'derekwyatt/vim-protodef'
 Plug 'fatih/vim-go'
-Plug 'goldfeld/vim-seek'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-search-pulse'
 Plug 'jplaut/vim-arduino-ino'
@@ -26,10 +25,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'nvie/vim-togglemouse'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'OrangeT/vim-csharp'
-Plug 'Osse/double-tap'
-Plug 'programble/itchy.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'rking/ag.vim'
 Plug 'rstacruz/sparkup'
@@ -66,14 +61,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer --gocode-completer'}
 Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/hexHighlight.vim'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 Plug 'yonchu/accelerated-smooth-scroll'
-Plug 'zhaocai/GoldenView.vim'
-call plug#end()
 
+call plug#end()
 
 syntax on
 filetype plugin indent on
@@ -294,7 +287,7 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 " }}}
-" Go mappings {{{
+" Go settings {{{
 let g:go_play_open_browser = 0
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
@@ -556,14 +549,6 @@ inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
 
-" Less chording
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-cnoremap ; :
-cnoremap : ;
-
 " Source
 vnoremap <leader>S y:execute @@<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>
@@ -588,20 +573,6 @@ nnoremap <leader>gd :bd<CR>
 
 " Remap yank register to "
 nnoremap "" "0
-
-" Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-" Highlight hex codes with their respect color
-if exists('*HexHighlight()')
-    nmap <leader>h :call HexHighlight()<Return>
-endif
 
 " Enable backups
 set backup
