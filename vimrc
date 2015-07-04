@@ -304,6 +304,10 @@ let g:go_highlight_build_constraints = 1"
 " Make all sorts case insensitive
 let g:sort_motion_flags = "ui"
 
+" Prevent easytags lag
+" vim 7.4 has a 'faster' regex engine which makes easytags lag, a lot.
+set regexpengine=0
+
 inoremap jk <ESC>;
 nnoremap<F8> :TagbarToggle<CR>
 set number
