@@ -504,15 +504,6 @@ autocmd BufWritePre    * :call TrimWhiteSpace()
 " Toggle solarized light/dark
 call togglebg#map("<F10>")
 
-" Python configuration
-augroup vimrc_autocmds
-    autocmd!
-    "highlight characters past col 120
-    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black autocmd Filetype python match Excess /\%120v.*/
-    autocmd Filetype python match Excess /\%120v.*/
-    autocmd Filetype python set nowrap
-augroup END
-
 " zM to open all folds
 " zR to close all folds
 autocmd Syntax c,cpp,h setlocal foldmethod=syntax
