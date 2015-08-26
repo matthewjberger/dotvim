@@ -37,6 +37,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shutnik/jshint2.vim'
 Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
+Plug 'sophacles/vim-processing'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tommcdo/vim-lion'
@@ -571,4 +572,8 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
+
+" Editing a protected file as 'sudo'
+cmap W w !sudo tee % >/dev/null<CR>
+
 "}}}
