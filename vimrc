@@ -37,6 +37,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shutnik/jshint2.vim'
 Plug 'SirVer/ultisnips'
 Plug 'sjl/gundo.vim'
+Plug 'sophacles/vim-processing'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tikhomirov/vim-glsl'
@@ -305,6 +306,10 @@ let g:go_highlight_build_constraints = 1"
 " Make all sorts case insensitive
 let g:sort_motion_flags = "ui"
 
+" Prevent easytags lag
+" vim 7.4 has a 'faster' regex engine which makes easytags lag, a lot.
+set regexpengine=0
+
 inoremap jk <ESC>;
 nnoremap<F8> :TagbarToggle<CR>
 set number
@@ -501,15 +506,6 @@ autocmd BufWritePre    * :call TrimWhiteSpace()
 " Toggle solarized light/dark
 call togglebg#map("<F10>")
 
-" Python configuration
-augroup vimrc_autocmds
-    autocmd!
-    "highlight characters past col 120
-    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black autocmd Filetype python match Excess /\%120v.*/
-    autocmd Filetype python match Excess /\%120v.*/
-    autocmd Filetype python set nowrap
-augroup END
-
 " zM to open all folds
 " zR to close all folds
 autocmd Syntax c,cpp,h setlocal foldmethod=syntax
@@ -577,4 +573,8 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
+
+" Editing a protected file as 'sudo'
+cmap W w !sudo tee % >/dev/null<CR>
+
 "}}}
