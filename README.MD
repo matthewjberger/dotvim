@@ -5,9 +5,12 @@ I use junegunn's vim-plug for plugin management.
 
 ##Installation:
 
-Clone the Repo and install plugins:
+Install dependencies, clone the repo, and install plugins:
 
-    bash -c 'git clone https://github.com/matthewjberger/DotVim.git ~/.vim
+    bash -c 'sudo apt-get install exuberant-ctags
+    sudo apt-get install build-essential cmake
+    sudo apt-get install python-dev
+    git clone https://github.com/matthewjberger/DotVim.git ~/.vim
     ln -s ~/.vim/vimrc ~/.vimrc
     cd ~/.vim
     git submodule init
