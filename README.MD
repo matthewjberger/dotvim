@@ -5,14 +5,9 @@ I use junegunn's vim-plug for plugin management.
 
 ##Installation:
 
-Install dependencies, clone the repo, and install plugins:
+This command assumes Ubuntu and Gnome are being used. Install dependencies, clone the repo, and install plugins:
 
-    bash -c 'sudo apt-get install exuberant-ctags
-    sudo apt-get install build-essential cmake
-    sudo apt-get install python-dev
+    bash -c 'sudo apt-get install vim-nox
     git clone https://github.com/matthewjberger/DotVim.git ~/.vim
-    ln -s ~/.vim/vimrc ~/.vimrc
     cd ~/.vim
-    git submodule init
-    git submodule update
-    vim +PlugInstall +qa'
+    ./install.sh'
