@@ -75,6 +75,7 @@ filetype plugin indent on
 " Ultisnips and YCM {{{
 set completeopt=menuone
 let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_global_ycm_extra_conf = 0
 
 let g:UltiSnipsExpandTrigger = '<CR>'
 let g:UltiSnipsExpandTrigger       ="<c-tab>"
