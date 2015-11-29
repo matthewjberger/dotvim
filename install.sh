@@ -1,10 +1,10 @@
 # Install dependencies
-sudo apt-get install ack-grep
-sudo apt-get install silversearcher-ag
-sudo apt-get install exuberant-ctags
-sudo apt-get install build-essential cmake
-sudo apt-get install python-dev
-sudo apt-get install golang
+sudo apt-get install -y ack-grep
+sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y exuberant-ctags
+sudo apt-get install -y build-essential cmake
+sudo apt-get install -y python-dev
+sudo apt-get install -y golang
 
 # Create a symbolic link to the vimrc
 ln -s ~/.vim/vimrc ~/.vimrc
@@ -15,16 +15,17 @@ git submodule init
 git submodule update --init --recursive
 
 # Install powerline fonts
-$dir="~/.vim/powerlinefonts"
-git clone https://github.com/powerline/fonts.git $dir
-if [ -d "$dir"]; then
-    cd $dir
-    ./install.sh
-    gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 12"
-    echo "If vim-airline doesn't look right, you may have to go into your terminal properties
-    and make sure that \"Use the system fixed width font\" under the General tab is unchecked."
-    rm -rf $dir
-fi
+git clone https://github.com/powerline/fonts.git ~/.vim/fonts
+cd ~/.vim/fonts
+./install.sh
+
+# Set font manually
+#gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline Regular 12"
+#gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type=boolean false
+
+echo "If vim-airline doesn't look right, you may have to go into your terminal properties
+and make sure that \"Use the system fixed width font\" under the General tab is unchecked."
+rm -rf ~/.vim/fonts
 
 # Install Vim-Plug and plugins
 cd ~/.vim
